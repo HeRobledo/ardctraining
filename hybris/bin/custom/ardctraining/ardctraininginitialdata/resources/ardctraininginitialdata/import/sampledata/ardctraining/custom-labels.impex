@@ -1,0 +1,4 @@
+INSERT_UPDATE CustomProductLabel; customer(uid)[unique = true]; product(code, catalogVersion(catalog(id), version))[unique = true]; label[unique = true]; validityDate[dateformat = yyyy.MM.dd]; labelType(code)
+                                ; herobledo@correo.com        ; 300938:electronicsProductCatalog:Online                           ; Camera              ; 2021.12.31                           ; PRIMARY
+                                ; herobledo@correo.com        ; 300938:electronicsProductCatalog:Online                           ; Custom1             ; 2021.12.31                           ; SECONDARY
+                                ; herobledo@correo.com        ; 300938:electronicsProductCatalog:Online                           ; Custom2             ; 2021.12.31                           ; ALTERNATIVE

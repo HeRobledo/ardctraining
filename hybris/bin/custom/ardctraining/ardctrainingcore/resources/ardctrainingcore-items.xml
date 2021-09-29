@@ -25,12 +25,53 @@
             <value code="WHITE"/>
             <value code="YELLOW"/>
         </enumtype>
+
+        <enumtype code="CustomLabelTypeEnum" generate="true" autocreate="true" dynamic="true">
+            <value code="PRIMARY"></value>
+            <value code="SECONDARY"></value>
+            <value code="ALTERNATIVE"></value>
+        </enumtype>
     </enumtypes>
 
     <itemtypes>
 
         <!-- Add your item definitions here -->
 
+        <typegroup name="ardctraining">
+            <itemtype code="CustomProductLabel" autocreate="true" generate="true"
+                      jaloclass="com.ardctraining.core.jalo.CustomProductLabel">
+                <deployment table="custprodlabel" typecode="10602"/>
+                <attributes>
+                    <attribute qualifier="label" type="java.lang.String">
+                        <modifiers read="true" write="true" unique="true"/>
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="labelType" type="CustomLabelTypeEnum">
+                        <modifiers read="true" write="true"/>
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="validityDate" type="java.util.Date">
+                        <modifiers read="true" write="true"/>
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="customer" type="Customer">
+                        <modifiers read="true" write="true" unique="true"/>
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="product" type="Product">
+                        <modifiers read="true" write="true" unique="true"/>
+                        <persistence type="property"/>
+                    </attribute>
+                </attributes>
+                <indexes>
+                    <index name="pk_custprodlabel" unique="true">
+                        <key attribute="label"/>
+                        <key attribute="customer"/>
+                        <key attribute="product"/>
+                    </index>
+                </indexes>
+            </itemtype>
+        </typegroup>
 
         <!-- TypeGroups are for structure of this file only -->
 
