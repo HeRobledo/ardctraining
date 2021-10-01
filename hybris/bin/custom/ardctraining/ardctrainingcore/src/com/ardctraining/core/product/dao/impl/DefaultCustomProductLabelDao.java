@@ -10,6 +10,7 @@ import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import org.apache.commons.collections4.CollectionUtils;
@@ -25,17 +26,35 @@ public class DefaultCustomProductLabelDao implements CustomProductLabelDao {
             "FROM   {" + CustomProductLabelModel._TYPECODE + "} " +
             "WHERE  {" + CustomProductLabelModel.CUSTOMER + "} = ?customer AND " +
             "       {" + CustomProductLabelModel.PRODUCT + "} = ?product";
+
+    private static final String FIND_EXPIRED_LABEL_QUERY =
+            "SELECT {" + ItemModel.PK + "} " +
+            "FROM   {" + CustomProductLabelModel._TYPECODE + "} " +
+            "WHERE  {" + CustomProductLabelModel.VALIDITYDATE + "} < ?now";
+
     @Override
     public List<CustomProductLabelModel> findByCustomerAndProduct(CustomerModel customer, ProductModel product) {
         final FlexibleSearchQuery query = new FlexibleSearchQuery(FIND_LABELS_BY_CUSTOMER_AND_PRODUCT_QUERY);
         query.addQueryParameter("customer", customer);
         query.addQueryParameter("product", product);
 
+        return findResult(query);
+    }
+    @Override
+    public List<CustomProductLabelModel> findExpired(final Date now){
+        final FlexibleSearchQuery query = new FlexibleSearchQuery(FIND_EXPIRED_LABEL_QUERY );
+        query.addQueryParameter("now", now);
+
+        return findResult(query);
+    }
+
+    public List<CustomProductLabelModel> findResult(final FlexibleSearchQuery query){
         final SearchResult<CustomProductLabelModel> result = getFlexibleSearchService().search(query);
+
         if(Objects.nonNull(result) && CollectionUtils.isNotEmpty(result.getResult())) {
             return result.getResult();
         }
-        LOG.warn("Unable to find results for custom product label");
+        LOG.warn("Unable to find results for query");
 
         return Collections.emptyList();
     }

@@ -1,12 +1,12 @@
 $catalog = electronicsProductCatalog
 $version = Online
-$catalogVersion =  catalogVersion(catalog(id)[default=$catalog],version[default=$version])[default=$catalog:$version]
+$catalogVersion = catalogVersion(catalog(id)[default=$catalog], version[default=$version])[default=$catalog:$version]
 
 
 INSERT_UPDATE CustomProductLabel; customer(uid)[unique = true]; product(code, $catalogVersion)[unique = true]; label[unique = true]; validityDate[dateformat = yyyy.MM.dd]; labelType(code)
-                                ; herobledo@correo.com        ; 300938:                                      ; Camera              ; 2021.12.31                           ; PRIMARY
-                                ; herobledo@correo.com        ; 300938:                                      ; Custom1             ; 2021.12.31                           ; SECONDARY
-                                ; herobledo@correo.com        ; 300938:                                      ; Custom2             ; 2021.12.31                           ; ALTERNATIVE
+                                ; herobledo@correo.com        ; 300938:$catalog:$version                     ; Camera              ; 2021.12.31                           ; PRIMARY
+                                ; herobledo@correo.com        ; 300938:$catalog:$version                     ; Custom1             ; 2021.12.31                           ; SECONDARY
+                                ; herobledo@correo.com        ; 300938:$catalog:$version                     ; Custom2             ; 2021.12.31                           ; ALTERNATIVE
 
-INSERT_UPDATE CustomProductLabel; customer(uid)[unique = true]; product(code, catalogVersion(catalog(id),version))[unique = true]; label[unique = true]; validityDate[dateformat = yyyy.MM.dd]; labelType(code)
-                                ; herobledo@correo.com        ; 300938:$catalog:$version              ; Custom3             ; 2021.12.31                           ; P
+INSERT_UPDATE CustomProductLabel; customer(uid)[unique = true]; product(code, catalogVersion(catalog(id), version))[unique = true]; label[unique = true]; validityDate[dateformat = yyyy.MM.dd]; labelType[translator = com.ardctraining.core.data.batch.CustomProductLabelLabelTypeTranslator]
+                                ; herobledo@correo.com        ; 300938:$catalog:$version                                          ; Custom3             ; 2021.12.31                           ; P
