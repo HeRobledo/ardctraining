@@ -1,6 +1,8 @@
 <hybrisconfig xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='../bin/platform/resources/schemas/extensions.xsd'>
   <extensions>
     <path dir='${HYBRIS_BIN_DIR}' autoload='false' />
+
+    <!-- Custom Extensions -->
     <extension name="ardctrainingcore"/>
     <extension name="ardctrainingbackoffice"/>
     <extension name="ardctrainingfacades"/>
@@ -8,12 +10,14 @@
     <extension name="ardctraininginitialdata"/>
     <extension name="ardctrainingtest"/>
     <extension name="ardctrainingstorefront"/>
+    <extension name="ardctrainingwebservices"/>
+    <!-- End custom extensions -->
     <extension name='adaptivesearch' />
     <extension name='adaptivesearchbackoffice' />
     <extension name='adaptivesearchfacades' />
     <extension name='adaptivesearchsamplesaddon' />
     <extension name='adaptivesearchsolr' />
-<!--    <extension name='adaptivesearchwebservices' /> -->
+    <extension name='adaptivesearchwebservices' />
     <extension name='apiregistrybackoffice' />
     <extension name='apiregistryservices' />
     <extension name='assistedservicecustomerinterestsaddon' />
@@ -23,23 +27,23 @@
     <extension name='assistedservicepromotionfacades' />
     <extension name='assistedserviceservices' />
     <extension name='assistedservicestorefront' />
-<!--    <extension name='assistedservicewebservices' /> -->
+    <extension name='assistedservicewebservices' />
     <extension name='assistedserviceyprofileaddon' />
     <extension name='assistedserviceyprofilefacades' />
     <extension name='yaasyprofileconnect' />
     <extension name='b2bacceleratoraddon' />
     <extension name='b2bacceleratorfacades' />
     <extension name='b2bacceleratorservices' />
-<!--    <extension name='b2bocc' />
+    <extension name='b2bocc' />
     <extension name='b2bocctests' />
-    <extension name='b2bwebservicescommons' /> -->
+    <extension name='b2bwebservicescommons' />
     <extension name='commerceorgaddon' />
     <extension name='commerceorgsamplesaddon' />
     <extension name='powertoolsstore' />
     <extension name='accountsummaryaddon' />
     <extension name='b2bpunchout' />
     <extension name='b2bpunchoutaddon' />
-<!--    <extension name='savedorderforms' /> -->
+    <extension name='savedorderforms' />
     <extension name='savedorderformsocc' />
     <extension name='secureportaladdon' />
     <extension name='b2bapprovalprocess' />
@@ -70,13 +74,13 @@
     <extension name='profileservices' />
     <extension name='profiletagaddon' />
     <extension name='merchandisingaddon' />
-<!--    <extension name='merchandisingcmswebservices' /> -->
+    <extension name='merchandisingcmswebservices' />
     <extension name='merchandisingservices' />
     <extension name='merchandisingservicesbackoffice' />
     <extension name='merchandisingsmartedit' />
     <extension name='merchandisingstorefrontsampledataaddon' />
     <extension name='commercefacades' />
-<!--    <extension name='commerceservices' /> -->
+    <extension name='commerceservices' />
     <extension name='commerceservicesbackoffice' />
     <extension name='commercewebservices' />
     <extension name='commercewebservicescommons' />
@@ -159,10 +163,10 @@
     <extension name='notificationservices' />
     <extension name='npmancillary' />
     <extension name='b2bordermanagementfacades' />
-<!--    <extension name='b2bordermanagementwebservices' /> -->
+    <extension name='b2bordermanagementwebservices' />
     <extension name='ordermanagementaddon' />
     <extension name='ordermanagementfacades' />
-<!--    <extension name='ordermanagementwebservices' /> -->
+    <extension name='ordermanagementwebservices' />
     <extension name='orderselfserviceaddon' />
     <extension name='warehousing' />
     <extension name='warehousingbackoffice' />

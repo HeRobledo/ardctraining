@@ -12,4 +12,12 @@ public interface ArdctrainingProductFacade extends ProductFacade {
      * @return
      */
     List<CustomProductLabelData> getCustomLabels(final String product);
+
+    /**
+     * get labels by customer and product
+     * @param customerId
+     * @param productCode
+     * @return
+     */
+    List<CustomProductLabelData> getCustomLabelsByCustomerAndProduct(String customerId, String productCode);
 }
