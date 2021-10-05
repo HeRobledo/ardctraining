@@ -203,6 +203,12 @@
 		<property name="customProductLabelService" ref="customProductLabelService"/>
 		<property name="customProductLabelConverter" ref="customProductLabelConverter"/>
 	</bean>
+
+	<alias name="ardctrainingSearchResultVariantPopulator" alias="commerceSearchResultProductPopulator" />
+	<bean id="ardctrainingSearchResultVariantPopulator" class="com.ardctraining.facades.populators.ArdctrainingSearchResultVariantPopulator"
+			parent = "variantCommerceSearchResultProductPopulator">
+		<property name="userService" ref="userService"/>
+	</bean>
 	<!--END custom beans -->
 
 </beans>

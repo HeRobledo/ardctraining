@@ -564,5 +564,12 @@
 		  parent="abstractJobPerformable">
 		<property name="customProductLabelService" ref="customProductLabelService" />
 	</bean>
+
+	<alias name="defaultCustomLabelValueProvider" alias="customProductLabelValueProvider" />
+	<bean id="defaultCustomLabelValueProvider" class="com.ardctraining.core.search.solrfacetsearch.provider.impl.CustomProductLabelValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="customProductLabelService" ref="customProductLabelService" />
+	</bean>
 	<!--END custom beans -->
 </beans>

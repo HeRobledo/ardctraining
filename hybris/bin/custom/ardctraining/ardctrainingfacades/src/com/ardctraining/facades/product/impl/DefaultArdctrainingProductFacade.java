@@ -31,7 +31,7 @@ public class DefaultArdctrainingProductFacade extends DefaultProductFacade imple
 
             if(Objects.nonNull(user) && user instanceof CustomerModel){
                 final CustomerModel customer = (CustomerModel) user;
-                final List<CustomProductLabelModel> labels = getCustomProductLabelService().findByCustomerAndProduct(customer,product);
+                final List<CustomProductLabelModel> labels = getCustomProductLabelService().findByCustomerAndProductAndNullCustomer(customer,product);
 
                 return getCustomProductLabelConverter().convertAll(labels);
             } else {

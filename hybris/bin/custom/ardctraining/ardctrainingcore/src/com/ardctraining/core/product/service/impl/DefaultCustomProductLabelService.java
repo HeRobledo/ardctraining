@@ -32,6 +32,22 @@ public class DefaultCustomProductLabelService implements CustomProductLabelServi
         return getCustomProductLabelDao().findExpired(now);
     }
 
+    @Override
+    public List<CustomProductLabelModel> findByCustomerAndProductAndNullCustomer(CustomerModel customer, ProductModel product) {
+        ServicesUtil.validateParameterNotNull(customer, "customer cannot be null");
+        ServicesUtil.validateParameterNotNull(product, "product cannot be null");
+
+        return getCustomProductLabelDao().findByCustomerAndProductAndNullCustomer(customer, product);
+
+    }
+
+    @Override
+    public List<CustomProductLabelModel> findByProduct(ProductModel product) {
+        ServicesUtil.validateParameterNotNull(product, "product cannot be null");
+
+        return getCustomProductLabelDao().findByProduct(product);
+    }
+
     public CustomProductLabelDao getCustomProductLabelDao() {
         return customProductLabelDao;
     }

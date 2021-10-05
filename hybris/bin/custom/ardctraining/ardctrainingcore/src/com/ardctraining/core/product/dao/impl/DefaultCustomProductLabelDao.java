@@ -21,17 +21,27 @@ public class DefaultCustomProductLabelDao implements CustomProductLabelDao {
     private FlexibleSearchService flexibleSearchService;
 
     private static final Logger LOG = Logger.getLogger(DefaultCustomProductLabelDao.class);
-    private static final String FIND_LABELS_BY_CUSTOMER_AND_PRODUCT_QUERY =
+
+    private static final String SELECT =
             "SELECT {" + ItemModel.PK + "} " +
-            "FROM   {" + CustomProductLabelModel._TYPECODE + "} " +
+            "FROM   {" + CustomProductLabelModel._TYPECODE + "} ";
+    private static final String FIND_LABELS_BY_CUSTOMER_AND_PRODUCT_QUERY =
+            SELECT +
             "WHERE  {" + CustomProductLabelModel.CUSTOMER + "} = ?customer AND " +
             "       {" + CustomProductLabelModel.PRODUCT + "} = ?product";
 
     private static final String FIND_EXPIRED_LABEL_QUERY =
-            "SELECT {" + ItemModel.PK + "} " +
-            "FROM   {" + CustomProductLabelModel._TYPECODE + "} " +
+            SELECT +
             "WHERE  {" + CustomProductLabelModel.VALIDITYDATE + "} < ?now";
 
+    private static final String FIND_LABELS_BY_CUSTOMER_AND_PRODUCT_AND_NULLCUSTOMER_QUERY =
+            SELECT +
+            "WHERE  ({" + CustomProductLabelModel.CUSTOMER + "} = ?customer OR {" + CustomProductLabelModel.CUSTOMER + "} is null) AND " +
+            "       {" + CustomProductLabelModel.PRODUCT + "} = ?product";
+
+    private static final String FIND_LABELS_BY_PRODUCT_QUERY =
+            SELECT +
+            "WHERE  {" + CustomProductLabelModel.PRODUCT + "} = ?product";
     @Override
     public List<CustomProductLabelModel> findByCustomerAndProduct(CustomerModel customer, ProductModel product) {
         final FlexibleSearchQuery query = new FlexibleSearchQuery(FIND_LABELS_BY_CUSTOMER_AND_PRODUCT_QUERY);
@@ -44,6 +54,23 @@ public class DefaultCustomProductLabelDao implements CustomProductLabelDao {
     public List<CustomProductLabelModel> findExpired(final Date now){
         final FlexibleSearchQuery query = new FlexibleSearchQuery(FIND_EXPIRED_LABEL_QUERY );
         query.addQueryParameter("now", now);
+
+        return findResult(query);
+    }
+
+    @Override
+    public List<CustomProductLabelModel> findByCustomerAndProductAndNullCustomer(CustomerModel customer, ProductModel product) {
+        final FlexibleSearchQuery query = new FlexibleSearchQuery(FIND_LABELS_BY_CUSTOMER_AND_PRODUCT_AND_NULLCUSTOMER_QUERY);
+        query.addQueryParameter("customer", customer);
+        query.addQueryParameter("product", product);
+
+        return findResult(query);
+    }
+
+    @Override
+    public List<CustomProductLabelModel> findByProduct(ProductModel product) {
+        final FlexibleSearchQuery query = new FlexibleSearchQuery(FIND_LABELS_BY_PRODUCT_QUERY);
+        query.addQueryParameter("product", product);
 
         return findResult(query);
     }

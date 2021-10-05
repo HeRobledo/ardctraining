@@ -23,4 +23,19 @@ public interface CustomProductLabelDao {
      */
     List<CustomProductLabelModel> findExpired(Date now);
 
+    /**
+     * find
+     * @param customer
+     * @param product
+     * @return
+     */
+    List<CustomProductLabelModel> findByCustomerAndProductAndNullCustomer(CustomerModel customer, ProductModel product);
+
+    /**
+     *
+     * @param product
+     * @return
+     */
+    List<CustomProductLabelModel> findByProduct(ProductModel product);
+
 }
