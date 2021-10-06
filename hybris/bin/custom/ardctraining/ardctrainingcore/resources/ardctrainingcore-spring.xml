@@ -563,6 +563,9 @@
 		  class="com.ardctraining.core.job.CustomProductLabelCleanupJobPerformable"
 		  parent="abstractJobPerformable">
 		<property name="customProductLabelService" ref="customProductLabelService" />
+		<property name="timeService" ref="timeService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
 	</bean>
 
 	<alias name="defaultCustomLabelValueProvider" alias="customProductLabelValueProvider" />
@@ -570,6 +573,23 @@
 		  parent="abstractPropertyFieldValueProvider">
 		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
 		<property name="customProductLabelService" ref="customProductLabelService" />
+	</bean>
+
+	<bean id="customLabelCleanupEmailProcessDefinitionResource" class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource" value="classpath:/ardctrainingcore/processes/sendCustomLabelCleanupEmailProcess.xml"/>
+	</bean>
+
+	<bean id="generateCustomLabelCLeanupEMail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="CustomProductLabelCleanupEmailTemplate"/>
+	</bean>
+
+	<bean depends-on="processContextResolutionStrategyMap" parent="mapMergeDirective">
+		<property name="key">
+			<value type="java.lang.Class">
+				com.ardctraining.core.model.CustomProductLabelCleanupEmailProcessModel
+			</value>
+		</property>
+		<property name="value" ref="storeFrontProcessContextStrategy"/>
 	</bean>
 	<!--END custom beans -->
 </beans>
