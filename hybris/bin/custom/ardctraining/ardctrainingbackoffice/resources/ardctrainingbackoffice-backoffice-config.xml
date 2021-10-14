@@ -17,6 +17,11 @@
 			<explorer-tree:navigation-node id="hmc_treenode_catalog">
 				<explorer-tree:type-node id="ardctraining_node_catalog_customproductlabel" code="CustomProductLabel" />
 			</explorer-tree:navigation-node>
+
+			<explorer-tree:navigation-node id="hmc_treenode_user">
+				<explorer-tree:type-node id="ardctraining_node_user_customerfeedback" code="CustomerFeedback" />
+			</explorer-tree:navigation-node>
+
 		</explorer-tree:explorer-tree>
 	</context>
 
@@ -128,5 +133,67 @@
 			</wz:flow>
 		</context>
 	</context>
+
+
+	<!-- Begin of Customerfeedback -->
+
+	<context type="CustomerFeedback">
+		<context parent="GenericItem" component="base" merge-by="type">
+			<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+				<y:labels beanId="customerFeedbackLabelProvider" />
+			</y:base>
+		</context>
+		<context parent="GenericItem" component="listview">
+			<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+				<list-view:column qualifier="customer"/>
+				<list-view:column qualifier="read"/>
+				<list-view:column qualifier="subject"/>
+				<list-view:column qualifier="message"/>
+				<list-view:column qualifier="submittedDate"/>
+				<list-view:column qualifier="status"/>
+			</list-view:list-view>
+		</context>
+		<context merge-by="type" parent="GenericItem" component="advanced-search">
+			<advanced-search:advanced-search
+					xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+				<advanced-search:field-list>
+					<advanced-search:field name="customer" selected="true" sortable="true"/>
+					<advanced-search:field name="read" selected="false" sortable="true"/>
+					<advanced-search:field name="subject" selected="false" sortable="true"/>
+					<advanced-search:field name="message" selected="false" sortable="true"/>
+					<advanced-search:field name="submittedDate" selected="true" sortable="true"/>
+					<advanced-search:field name="status" selected="false" sortable="true"/>
+				</advanced-search:field-list>
+			</advanced-search:advanced-search>
+		</context>
+		<context merge-by="type" parent="GenericItem" component="simple-search">
+			<simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+				<simple-search:field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="subject"/>
+				<simple-search:field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="customer"/>
+				<simple-search:sort-field name="submittedDate" asc="true" />
+			</simple-search:simple-search>
+		</context>
+		<context component="editor-area" parent="GenericItem" merge-by="type">
+			<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+				<editorArea:essentials>
+					<editorArea:essentialSection name="sec.customerfeedback.essential">
+						<editorArea:attribute qualifier="customer"/>
+						<editorArea:attribute qualifier="subject"/>
+					</editorArea:essentialSection>
+				</editorArea:essentials>
+				<editorArea:tab name="tab.customerfeedback.properties">
+					<editorArea:section name="sec.customerfeedback.general">
+						<editorArea:attribute qualifier="subject" />
+						<editorArea:attribute qualifier="message" />
+						<editorArea:attribute qualifier="read" />
+						<editorArea:attribute qualifier="submittedDate" />
+						<editorArea:attribute qualifier="status" />
+					</editorArea:section>
+				</editorArea:tab>
+			</editorArea:editorArea>
+		</context>
+	</context>
+
+<!-- End of Customerfeedback -->
 
 </config>

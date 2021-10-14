@@ -32,6 +32,13 @@
             <value code="SECONDARY"></value>
             <value code="ALTERNATIVE"></value>
         </enumtype>
+
+        <enumtype code="FeedbackStatusEnum" generate="true" autocreate="true" dynamic="true">
+            <value code="NOT_READ"></value>
+            <value code="READ"></value>
+            <value code="PASTDUE"></value>
+            <value code="READ_PASTDUE"></value>
+        </enumtype>
     </enumtypes>
 
     <itemtypes>
@@ -93,8 +100,45 @@
                         <persistence type="property"/>
                     </attribute>
                 </attributes>
-
             </itemtype>
+
+            <itemtype code="CustomerFeedback" autocreate="true" generate="true"
+                        jaloclass="com.ardctraining.core.jalo.CustomerFeedback">
+                <deployment table="custfeedback" typecode="10603"/>
+                <attributes>
+                    <attribute qualifier="customer" type="Customer">
+                        <modifiers read="true" write="true" unique="true"/>
+                        <persistence type="property"/>
+                    </attribute>
+
+                    <attribute qualifier="read" type="java.lang.Boolean">
+                        <defaultvalue>Boolean.FALSE</defaultvalue>
+                        <modifiers read="true" write="true"/>
+                        <persistence type="property"/>
+                    </attribute>
+
+                    <attribute qualifier="subject" type="java.lang.String">
+                        <modifiers read="true" write="true"/>
+                        <persistence type="property"/>
+                    </attribute>
+
+                    <attribute qualifier="message" type="java.lang.String">
+                        <modifiers read="true" write="true"/>
+                        <persistence type="property"/>
+                    </attribute>
+
+                    <attribute qualifier="submittedDate" type="java.util.Date">
+                        <modifiers read="true" write="true"/>
+                        <persistence type="property"/>
+                    </attribute>
+
+                    <attribute qualifier="status" type="FeedbackStatusEnum">
+                        <modifiers read="true" write="true"/>
+                        <persistence type="dynamic" attributeHandler="feedbackStatusAttributeHandler"/>
+                    </attribute>
+                </attributes>
+            </itemtype>
+
         </typegroup>
 
         <!-- TypeGroups are for structure of this file only -->

@@ -216,4 +216,24 @@
 	</bean>
 	<!--END custom beans -->
 
+	<!-- F PROJECT BEANS -->
+	<alias name="defaultCustomerFeedbackPopulator" alias="customerFeedbackPopulator"/>
+	<bean id="defaultCustomerFeedbackPopulator" class="com.ardctraining.facades.populators.CustomerFeedbackPopulator"/>
+
+	<alias name="defaultCustomerFeedbackDataConverter" alias="customerFeedbackDataConverter"/>
+	<bean id="defaultCustomerFeedbackDataConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.ardctraining.facades.feedback.data.CustomerFeedbackData"/>
+		<property name="populators">
+			<list>
+				<ref bean="customerFeedbackPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultArdctrainingCustomerFeedbackFacade" alias="feedbackFacade"/>
+	<bean id="defaultArdctrainingCustomerFeedbackFacade" class="com.ardctraining.facades.feedback.impl.DefaultArdctrainingCustomerFeedbackFacade">
+		<property name="customerFeedbackService" ref="customerFeedbackService"/>
+		<property name="customerFeedbackDataConverter" ref="customerFeedbackDataConverter"/>
+	</bean>
+	<!-- END OF F PROJECT BEANS -->
 </beans>

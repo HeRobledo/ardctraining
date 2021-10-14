@@ -1,0 +1,20 @@
+$contentCatalog = electronicsContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]), CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$lang = en
+
+# Import config properties into impex macros
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+$jarResourceCms = $config-jarResourceCmsValue
+$siteResource = jar:com.ardctraining.initialdata.constants.ArdctrainingInitialDataConstants&/ardctraininginitialdata/import/coredata/contentCatalogs/$contentCatalog
+
+INSERT_UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]; name            ; masterTemplate(uid, $contentCV); label      ; defaultPage[default = 'true']; approvalStatus(code)[default = 'approved']; homepage[default = 'false']
+                         ;                          ; feedback         ; Feedback Page ; ContentPage1Template           ; feedback ;                              ;                                           ;
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]     ; name                              ; active; cmsComponents(&componentRef)
+                         ;                          ; Section1Slot-Feedback ; Section1 Slot for Feedback Page ; true  ; FeedbackContentComponent
+
+INSERT_UPDATE ContentSlotForPage; $contentCV[unique = true]; uid[unique = true] ; position[unique = true]; page(uid, $contentCV)[unique = true][default = 'feedback']; contentSlot(uid, $contentCV)[unique = true]
+                                ;                          ; Section1-Feedback ; Section1               ;                                                            ; Section1Slot-Feedback
+
+INSERT_UPDATE JspIncludeComponent; $contentCV[unique = true]; uid[unique = true]        ; name                         ; page                                                      ; actions(uid, $contentCV); &componentRef
+                                 ;                          ; FeedbackContentComponent ; Feedback Content Component ; /WEB-INF/views/responsive/pages/feedback/feedbackPage.jsp ;                         ; FeedbackContentComponent
