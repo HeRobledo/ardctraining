@@ -6,6 +6,7 @@ import com.ardctraining.facades.feedback.ArdctrainingCustomerFeedbackFacade;
 import com.ardctraining.facades.feedback.data.CustomerFeedbackData;
 import com.ardctraining.storefront.controllers.ControllerConstants;
 import com.ardctraining.storefront.form.FeedbackForm;
+import com.ardctraining.storefront.form.validation.ArdctrainingFeedbackValidator;
 import de.hybris.platform.acceleratorstorefrontcommons.controllers.pages.AbstractPageController;
 import de.hybris.platform.cms2.exceptions.CMSItemNotFoundException;
 import de.hybris.platform.cms2.model.pages.ContentPageModel;
@@ -28,6 +29,9 @@ public class FeedbackPageController extends AbstractPageController {
     @Resource(name="feedbackFacade")
     private ArdctrainingCustomerFeedbackFacade ardctrainingCustomerFeedbackFacade;
 
+    @Resource
+    private ArdctrainingFeedbackValidator ardctrainingFeedbackValidator;
+
 
     private static final String FEEDBACK_PAGE_LABEL = "feedback";
     private static final String FEEDBACK_PAGE_LIST = "feedbacks";
@@ -40,7 +44,7 @@ public class FeedbackPageController extends AbstractPageController {
         setUpMetaDataForContentPage(model, contentPageModel);
 
         model.addAttribute(FEEDBACK_FORM_ATTR, createEmptyForm());
-        //model.addAttribute(FEEDBACK_PAGE_LIST, ardctrainingCustomerFeedbackFacade.getCustomerFeedback());
+        model.addAttribute(FEEDBACK_PAGE_LIST, ardctrainingCustomerFeedbackFacade.getCustomerFeedback());
         return ControllerConstants.Views.Pages.Feedback.FeedbackPage;
     }
 
@@ -48,13 +52,15 @@ public class FeedbackPageController extends AbstractPageController {
     public String submitFeedback(final Model model,
                                  final FeedbackForm feedbackform,
                                  final BindingResult bindingResult){
+        ardctrainingFeedbackValidator.validate(feedbackform, bindingResult);
         if(BooleanUtils.isFalse(bindingResult.hasErrors())){
             String subject, message;
             subject = feedbackform.getSubject();
             message = feedbackform.getMessage();
             ardctrainingCustomerFeedbackFacade.saveFeedback(subject, message);
+
         }
-        return "redirect:" + ControllerConstants.Views.Pages.Feedback.FeedbackPage;
+        return REDIRECT_PREFIX + FEEDBACK_PAGE_LABEL;
     }
 
     private FeedbackForm createEmptyForm(){

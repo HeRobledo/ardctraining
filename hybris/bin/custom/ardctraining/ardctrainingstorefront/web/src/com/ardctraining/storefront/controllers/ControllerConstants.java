@@ -161,6 +161,10 @@ public interface ControllerConstants
 			interface Feedback { // NOSONAR
 				String FeedbackPage = "pages/feedback/feedbackPage";
 			}
+
+			interface ReFeedback {
+				String ReFeedbackPage = "feedback";
+			}
 		}
 
 		interface Fragments

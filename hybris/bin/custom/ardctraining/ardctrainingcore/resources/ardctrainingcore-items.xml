@@ -9,6 +9,7 @@
         <collectiontype code="SwatchColorSet" elementtype="SwatchColorEnum" autocreate="true" generate="true"
                         type="set"/>
         <collectiontype code="CustomLabelSet" elementtype="java.lang.String" autocreate="true" generate="true" type="set"/>
+        <collectiontype code="CustomerFeedbackSet" elementtype="java.lang.String" autocreate="true" generate="true" type="set"/>
     </collectiontypes>
 
     <enumtypes>
@@ -107,7 +108,7 @@
                 <deployment table="custfeedback" typecode="10603"/>
                 <attributes>
                     <attribute qualifier="customer" type="Customer">
-                        <modifiers read="true" write="true" unique="true"/>
+                        <modifiers read="true" write="true"/>
                         <persistence type="property"/>
                     </attribute>
 
@@ -135,6 +136,22 @@
                     <attribute qualifier="status" type="FeedbackStatusEnum">
                         <modifiers read="true" write="true"/>
                         <persistence type="dynamic" attributeHandler="feedbackStatusAttributeHandler"/>
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+            <itemtype code="CustomerFeedbackCleanupEmailProcess"
+                      generate="true"
+                      autocreate="true"
+                      extends="StoreFrontProcess">
+                <attributes>
+                    <attribute qualifier="customerFeedback" type="CustomerFeedbackSet">
+                        <modifiers read="true" write="true"/>
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="language" type="Language">
+                        <modifiers read="true" write="true"/>
+                        <persistence type="property"/>
                     </attribute>
                 </attributes>
             </itemtype>

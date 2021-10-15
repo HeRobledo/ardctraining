@@ -12,5 +12,6 @@ public class CustomerFeedbackPopulator implements Populator<CustomerFeedbackMode
         target.setSubject(source.getSubject());
         target.setMessage(source.getMessage());
         target.setSubmittedDate(String.valueOf(source.getSubmittedDate()));
+     //   target.setStatus(soruce.getStatus());
     }
 }

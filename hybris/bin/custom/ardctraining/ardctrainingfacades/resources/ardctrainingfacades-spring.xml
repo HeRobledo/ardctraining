@@ -231,9 +231,15 @@
 	</bean>
 
 	<alias name="defaultArdctrainingCustomerFeedbackFacade" alias="feedbackFacade"/>
-	<bean id="defaultArdctrainingCustomerFeedbackFacade" class="com.ardctraining.facades.feedback.impl.DefaultArdctrainingCustomerFeedbackFacade">
+	<bean id="defaultArdctrainingCustomerFeedbackFacade" class="com.ardctraining.facades.feedback.impl.DefaultArdctrainingCustomerFeedbackFacade"
+		  parent="defaultCustomerFacade">
 		<property name="customerFeedbackService" ref="customerFeedbackService"/>
 		<property name="customerFeedbackDataConverter" ref="customerFeedbackDataConverter"/>
+	</bean>
+
+	<bean id="customerFeedbackCleanupEmailContext" class="com.ardctraining.facades.process.email.context.CustomerFeedbackCleanupEmailContext"
+		  parent="abstractEmailContext">
+		<property name="configurationService" ref="configurationService"/>
 	</bean>
 	<!-- END OF F PROJECT BEANS -->
 </beans>

@@ -8,12 +8,28 @@
 <html>
 <head>
     <title>Feedback</title>
+
+    <c:choose>
+        <c:when test="${not empty sentFeedback}">
+            <div class="alert alert-primary" role="alert">
+                Your feedback have been sent, thank you!
+            </div>
+        </c:when>
+        <c:when test="${not empty emptyFeedback}">
+            <div class="alert alert-warning" role="alert">
+              Some fields are missing, be sure to fill them
+            </div>
+        </c:when>
+    </c:choose>
+
 </head>
 
 <body>
-<h1>Customer Feedback</h1>
-<h3>Share your comments/suggestions with us</h3>
+<div style="margin: 2%">
 
+<h1>Customer Feedback</h1>
+<h3>Share your comments/suggestions with us!</h3>
+<br>
 
 <form:form id="feedbackform" action="/ardctrainingstorefront/feedback/save" method="POST" modelAttribute="feedbackform">
 	<div class="form-group">
@@ -24,21 +40,41 @@
 			<label class="control-label" for="message">MESSAGE</label>
             <form:textarea class="form-control" id="message" rows="3" maxlength="500" path="message"></form:textarea>
         </div>
-			<li>
-				<button type="submit" class="button" id="submit">Send</button>
-				<button href="/feedback" class="button" id="cancel">Cancel</button>
-			</li>
+			<div style="text-align:right">
+				<button type="submit" class="btn btn-primary" id="submit">Send</button>
+				<button type="reset" class="btn btn-secondary" id="cancel">Cancel</button>
+			</div>
 
 
 </form:form>
-
+<br>
+<h3>Your feedback</h3>
     <div>
-        <c:forEach items="${feedbacks}" var="feedbacks" varStatus="loop">
-            <p>${feedback.subject}</p>
-            <p>${feedback.message}</p>
-            <p>${feedback.submittedDate}</p>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>SUBJECT</th>
+                    <th>MESSAGE</th>
+                    <th style="text-align:left">DATE</th>
+
+                    </tr>
+            </thead>
+
+        <tbody>
+        <c:forEach items="${feedbacks}" var="feedback" >
+        <tr>
+            <td>${feedback.subject}</td>
+            <td>${feedback.message}</td>
+            <td>${feedback.submittedDate}</td>
+
+        </tr>
         </c:forEach>
+        </tbody>
+        </table>
+
     </div>
+</div>
+
 </body>
 </html>
 </template:page>
